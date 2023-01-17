@@ -17,17 +17,6 @@ class App(ct.CTk):
         self.path = self.BASE_DIR + '\ImageList'
         self.images = []
         self.classNames = []
-        self.myList = os.listdir(self.path)
-        print(self.myList)
-
-        for cls in self.myList:
-            curImg = cv2.imread(f'{self.path}/{cls}')
-            self.images.append(curImg)
-            self.classNames.append(os.path.splitext(cls)[0])
-        print(self.classNames)
-
-        self.encodeListKnown = self.findEncodings(self.images)
-        print('Encoding Complete')
 
         # ==================================================================================
         self.WIDTH = self.winfo_screenwidth()
@@ -130,6 +119,18 @@ class App(ct.CTk):
             prevImg.save(file.name);
 
     def detect(self):
+        self.myList = os.listdir(self.path)
+        print(self.myList)
+
+        for cls in self.myList:
+            curImg = cv2.imread(f'{self.path}/{cls}')
+            self.images.append(curImg)
+            self.classNames.append(os.path.splitext(cls)[0])
+        print(self.classNames)
+
+        self.encodeListKnown = self.findEncodings(self.images)
+        print('Encoding Complete')
+        
         while True:
             success, img = self.cap.read()
             imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
