@@ -113,10 +113,12 @@ class App(ct.CTk):
     def capture(self):
         global prevImg
 
+        saveImg = prevImg
+
         file = FileDialog.asksaveasfile(initialdir=f"{self.BASE_DIR}\ImageList", defaultextension=".png", filetypes=[("Portable Network Graphics", ".png"), ("JPEG", [".jpg", ".jpeg"]), ("All files", ".*")], title="Save Image")
 
         if file is not None:
-            prevImg.save(file.name);
+            saveImg.save(file.name);
 
     def detect(self):
         self.myList = os.listdir(self.path)
@@ -130,7 +132,7 @@ class App(ct.CTk):
 
         self.encodeListKnown = self.findEncodings(self.images)
         print('Encoding Complete')
-        
+
         while True:
             success, img = self.cap.read()
             imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
